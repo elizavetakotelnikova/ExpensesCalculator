@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 @Component
 public class CommandsDictionary {
-    private ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
     @Getter
     private Map<String, Command> commandMap;
     @Autowired
