@@ -33,4 +33,8 @@ public class Category {
     )
     private List<Integer> mccCodes;
 
+    public Category(String name, List<Integer> mccCodes) {
+        this.name = name;
+        this.mccCodes = mccCodes;
+    }
 }

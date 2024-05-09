@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Month;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,16 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Integer value;
-    private java.time.LocalDate date;
+    private Float value;
+    @Enumerated(EnumType.STRING)
+    //@Convert(converter = ColorConverter.class)
+    private Month month;
     private Integer mccCode;
+
+    public Transaction(String name, Float amount, Month month, Integer mccCode) {
+        this.name = name;
+        this.value = amount;
+        this.month = month;
+        this.mccCode = mccCode;
+    }
 }
