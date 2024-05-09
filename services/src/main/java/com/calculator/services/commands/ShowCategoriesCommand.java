@@ -4,13 +4,14 @@ import com.calculator.services.exceptions.IncorrectArgumentsException;
 import com.calculator.services.services.CategoryService;
 import com.calculator.services.services.Validator;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class ShowCategoriesCommand implements Command {
-    @Autowired
     private final CategoryService categoryService;
     @Override
     public void execute() throws CommandExecutionException {

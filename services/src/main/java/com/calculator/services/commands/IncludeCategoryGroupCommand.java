@@ -5,17 +5,16 @@ import com.calculator.services.exceptions.IncorrectArgumentsException;
 import com.calculator.services.services.CategoryService;
 import com.calculator.services.services.Validator;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class IncludeCategoryGroupCommand implements Command {
     private String parentCategoryName;
     private List<String> subcategories;
-    @Autowired
     private final CategoryService categoryService;
-    @Autowired
     private final Validator validator;
     @Override
     public void execute() throws CommandExecutionException {

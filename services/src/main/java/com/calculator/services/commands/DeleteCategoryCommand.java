@@ -6,16 +6,16 @@ import com.calculator.services.exceptions.IncorrectArgumentsException;
 import com.calculator.services.services.CategoryService;
 import com.calculator.services.services.Validator;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class DeleteCategoryCommand implements Command {
     private String category;
-    @Autowired
     private final CategoryService categoryService;
-    @Autowired
     private final Validator validator;
     @Override
     public void execute() throws CommandExecutionException {

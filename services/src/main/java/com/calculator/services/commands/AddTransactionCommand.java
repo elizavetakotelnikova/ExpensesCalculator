@@ -5,20 +5,20 @@ import com.calculator.services.exceptions.IncorrectArgumentsException;
 import com.calculator.services.services.TransactionService;
 import com.calculator.services.services.Validator;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Month;
 import java.util.List;
 
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class AddTransactionCommand implements Command {
     private String name;
     private Float value;
     private String month; //может надо поменять на Month month
     private Integer mccCode;
-    @Autowired
     private final TransactionService transactionService;
-    @Autowired
     private final Validator validator;
     @Override
     public void execute() throws CommandExecutionException {

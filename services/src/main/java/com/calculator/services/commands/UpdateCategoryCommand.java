@@ -4,18 +4,17 @@ import com.calculator.services.exceptions.IncorrectArgumentsException;
 import com.calculator.services.services.CategoryService;
 import com.calculator.services.services.Validator;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class UpdateCategoryCommand implements Command {
     private String newCategoryName;
     private List<Integer> mccCodes;
-    @Autowired
     private final CategoryService categoryService;
-    @Autowired
     private final Validator validator;
     @Override
     public void execute() throws CommandExecutionException {
