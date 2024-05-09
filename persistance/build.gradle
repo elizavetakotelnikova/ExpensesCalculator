@@ -18,8 +18,10 @@ configurations {
     }
 }
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
 
 dependencies {
@@ -35,4 +37,7 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+tasks.register('prepareKotlinBuildScriptModel') {
+
 }

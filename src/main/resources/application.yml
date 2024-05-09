@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:7779/liptsoftTask
+    username: postgres
+    password: postgres
+  main:
+    allow-bean-definition-overriding: true
+
+
+
+flyway:
+  url: jdbc:postgresql://localhost:7779/liptsoftTask
+  user: postgres
+  password: postgres
+  enabled: true
+  locations:
+    - 'classpath:db/migration'
