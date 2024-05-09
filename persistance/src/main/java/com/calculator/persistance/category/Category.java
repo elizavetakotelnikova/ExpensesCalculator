@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.springframework.data.repository.cdi.Eager;
 
 import java.util.List;
 
@@ -26,15 +28,15 @@ public class Category {
             inverseJoinColumns = { @JoinColumn(name = "parent_category_id") }
     )
     private List<Category> subcategories;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
             name="mcc_codes",
-            joinColumns=@JoinColumn(name="category_ID")
+            joinColumns=@JoinColumn(name="category_id")
     )
-    private List<Integer> mccCodes;
+    private List<Integer> mccCode;
 
-    public Category(String name, List<Integer> mccCodes) {
+    public Category(String name, List<Integer> mccCode) {
         this.name = name;
-        this.mccCodes = mccCodes;
+        this.mccCode = mccCode;
     }
 }

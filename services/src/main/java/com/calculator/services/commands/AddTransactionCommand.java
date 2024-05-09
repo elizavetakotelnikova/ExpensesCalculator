@@ -2,11 +2,10 @@ package com.calculator.services.commands;
 
 import com.calculator.services.exceptions.CommandExecutionException;
 import com.calculator.services.exceptions.IncorrectArgumentsException;
-import com.calculator.services.services.TransactionService;
+import com.calculator.services.receivers.transaction.TransactionAddable;
 import com.calculator.services.services.Validator;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Month;
 import java.util.List;
@@ -16,9 +15,9 @@ import java.util.List;
 public class AddTransactionCommand implements Command {
     private String name;
     private Float value;
-    private String month; //может надо поменять на Month month
+    private Month month;
     private Integer mccCode;
-    private final TransactionService transactionService;
+    private final TransactionAddable transactionService;
     private final Validator validator;
     @Override
     public void execute() throws CommandExecutionException {
@@ -33,7 +32,11 @@ public class AddTransactionCommand implements Command {
         if (!validator.validateMonth(arguments.get(2))) throw new IncorrectArgumentsException("Invalid month name");
         if (arguments.size() == 4) {
             if (!validator.validateMccCode(arguments.get(3))) throw new IncorrectArgumentsException("Invalid mcc code");
+            this.mccCode = Integer.parseInt(arguments.get(3));
         }
+        this.name = arguments.getFirst();
+        this.value = Float.parseFloat(arguments.get(1));
+        this.month = Month.valueOf(arguments.get(2));
         return true;
     }
 }

@@ -1,5 +1,7 @@
 package com.calculator.services.receivers.transaction;
 
+import java.time.Month;
+
 public interface TransactionAddable {
-    public void addTransaction(String name, float amount, String month, Integer mccCode);
+    public void addTransaction(String name, float amount, Month month, Integer mccCode);
 }

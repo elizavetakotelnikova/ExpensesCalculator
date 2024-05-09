@@ -2,7 +2,7 @@ package com.calculator.services.commands;
 
 import com.calculator.services.exceptions.CommandExecutionException;
 import com.calculator.services.exceptions.IncorrectArgumentsException;
-import com.calculator.services.services.CategoryService;
+import com.calculator.services.receivers.category.GroupAddable;
 import com.calculator.services.services.Validator;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +14,11 @@ import java.util.List;
 public class IncludeCategoryGroupCommand implements Command {
     private String parentCategoryName;
     private List<String> subcategories;
-    private final CategoryService categoryService;
+    private final GroupAddable categoryService;
     private final Validator validator;
     @Override
     public void execute() throws CommandExecutionException {
-        categoryService.includeCategory(parentCategoryName, subcategories);
+        categoryService.addCategoriesGroup(parentCategoryName, subcategories);
     }
 
     @Override
@@ -29,6 +29,9 @@ public class IncludeCategoryGroupCommand implements Command {
         for (int i = 1; i < arguments.size(); i++) {
             if (validator.validateCategoryName(arguments.get(i))) throw new IncorrectArgumentsException("Invalid subcategory name");
         }
+        this.parentCategoryName = arguments.getFirst();
+        arguments.removeFirst();
+        this.subcategories = arguments;
         return true;
     }
 }

@@ -3,28 +3,24 @@ package com.calculator.services.services;
 import com.calculator.persistance.category.CategoryRepository;
 import com.calculator.persistance.transaction.Transaction;
 import com.calculator.persistance.transaction.TransactionRepository;
-import com.calculator.services.receivers.transaction.TransactionAddable;
-import com.calculator.services.receivers.transaction.TransactionDeletable;
+import com.calculator.services.receivers.transaction.TransactionService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Locale;
 
 @Service
 @AllArgsConstructor
-public class TransactionService implements TransactionAddable, TransactionDeletable {
+public class TransactionManagerImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final CategoryRepository categoryRepository;
     private final Displayable display;
 
     @Override
-    public void addTransaction(String name, float amount, String month, Integer mccCode) {
-        Month givenMonth = Month.valueOf(month.toUpperCase());
-        transactionRepository.save(new Transaction(name, amount, givenMonth, mccCode));
-        var foundCategory = categoryRepository.findCategoryByMccCodes(new ArrayList<>(mccCode));
+    public void addTransaction(String name, float amount, Month month, Integer mccCode) {
+        transactionRepository.save(new Transaction(name, amount, month, mccCode));
+        var foundCategory = categoryRepository.findCategoryByMccCodeIn(new ArrayList<>(mccCode));
         var categoriesNames = new ArrayList<>();
         categoriesNames.add(foundCategory.getName());
         for (var each : foundCategory.getSubcategories()) {
@@ -34,13 +30,12 @@ public class TransactionService implements TransactionAddable, TransactionDeleta
     }
 
     @Override
-    public void deleteTransaction(String name, float amount, String month) {
-        Month givenMonth = Month.valueOf(month.toUpperCase());
-        if (transactionRepository.findTransactionByNameAndValueAndMonth(name, amount, givenMonth) == null) {
+    public void deleteTransaction(String name, float amount, Month month) {
+        if (transactionRepository.findTransactionByNameAndValueAndMonth(name, amount, month) == null) {
             display.displayMessage("No such transaction");
             return;
         }
-        transactionRepository.deleteTransactionByNameAndValueAndMonth(name, amount, givenMonth);
+        transactionRepository.deleteTransactionByNameAndValueAndMonth(name, amount, month);
         display.displayMessage("Transaction deleted");
     }
 }

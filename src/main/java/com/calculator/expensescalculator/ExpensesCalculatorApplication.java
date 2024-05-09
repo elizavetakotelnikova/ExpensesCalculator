@@ -9,8 +9,11 @@ import com.calculator.services.exceptions.CommandExecutionException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan("com.calculator.services")
+@ComponentScan("com.calculator.persistance")
 public class ExpensesCalculatorApplication {
     public static void main(String[] args) {
         var applicationContext = SpringApplication.run(ExpensesCalculatorApplication.class, args);
@@ -30,7 +33,7 @@ public class ExpensesCalculatorApplication {
                 System.out.println("Error in command execution: " + exc.getMessage());
             }
             catch (Exception exc) {
-                System.out.println("Error during runtime: " + exc.getMessage());
+                System.out.println("Error during runtime: " + exc.getMessage() + " " + exc.getCause() + " " + exc.getClass());
             }
         }
     }

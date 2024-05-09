@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 @RequiredArgsConstructor
 public class ConsoleCommandParser implements Parser {
@@ -29,7 +30,8 @@ public class ConsoleCommandParser implements Parser {
     }
 
     public List<String> getLine() {
-        String line = System.console().readLine(); //or system.in
+        Scanner scanner = new Scanner(System.in);
+        String line = scanner.nextLine();
         if (line == null) return new ArrayList<>();
         String[] arguments = line.split(" ");
         return Arrays.stream(arguments).toList();
@@ -38,7 +40,7 @@ public class ConsoleCommandParser implements Parser {
     private Command defineCommand(List<String> arguments) throws IncorrectArgumentsException {
         if (arguments.isEmpty()) return null;
         ChainLink commandHandler = new CommandHandler(commandsDictionary).addNext(new ArgumentsHandler());
-        var listArguments = arguments.stream().toList();
+        var listArguments = new ArrayList<>(arguments);
         var parsingRequest = new Request(null, listArguments);
         commandHandler.handle(parsingRequest);
         return parsingRequest.getCommand();
