@@ -32,8 +32,12 @@ public class CommandsDictionary {
                 applicationContext.getBean(Validator.class)));
         commandMap.put("add transaction", new AddTransactionCommand(applicationContext.getBean(TransactionAddable.class),
                 applicationContext.getBean(Validator.class)));
-        commandMap.put("remove transacion", new DeleteTransactionCommand(applicationContext.getBean(TransactionDeletable.class),
+        commandMap.put("remove transaction", new DeleteTransactionCommand(applicationContext.getBean(TransactionDeletable.class),
                 applicationContext.getBean(Validator.class)));
         commandMap.put("show categories", new ShowCategoriesCommand(applicationContext.getBean(CategoryShowable.class)));
+        commandMap.put("show expenses in", new ShowAllExpensesByMonth(applicationContext.getBean(ExpensesCalculator.class),
+                applicationContext.getBean(Validator.class)));
+        commandMap.put("show monthly expenses in", new ShowMonthlyCategoryExpenses(applicationContext.getBean(ExpensesCalculator.class),
+                applicationContext.getBean(Validator.class)));
     }
 }

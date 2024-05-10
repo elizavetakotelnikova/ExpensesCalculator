@@ -22,7 +22,7 @@ public class Transaction {
     private String name;
     private Float value;
     @Enumerated(EnumType.STRING)
-    //@Convert(converter = ColorConverter.class)
+    @Convert(converter = MonthConverter.class)
     private Month month;
     private Integer mccCode;
 

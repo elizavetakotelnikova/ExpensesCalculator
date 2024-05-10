@@ -24,10 +24,10 @@ public class IncludeCategoryGroupCommand implements Command {
     @Override
     public boolean validateArguments(List<String> arguments) throws IncorrectArgumentsException {
         if (arguments.size() < 2) throw new IncorrectArgumentsException("Not enough arguments");
-        if (validator.validateCategoryName(arguments.getFirst())) throw new IncorrectArgumentsException("Invalid category name");
+        if (!validator.validateCategoryName(arguments.getFirst())) throw new IncorrectArgumentsException("Invalid category name");
         //var validSubcategoriesNames = new ArrayList<>();
         for (int i = 1; i < arguments.size(); i++) {
-            if (validator.validateCategoryName(arguments.get(i))) throw new IncorrectArgumentsException("Invalid subcategory name");
+            if (!validator.validateCategoryName(arguments.get(i))) throw new IncorrectArgumentsException("Invalid subcategory name");
         }
         this.parentCategoryName = arguments.getFirst();
         arguments.removeFirst();

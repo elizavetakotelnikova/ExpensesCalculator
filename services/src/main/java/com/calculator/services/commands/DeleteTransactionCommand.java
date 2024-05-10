@@ -31,7 +31,7 @@ public class DeleteTransactionCommand implements Command {
         if (!validator.validateMonth(arguments.get(2))) throw new IncorrectArgumentsException("Invalid month name");
         this.name = arguments.getFirst();
         this.value = Float.parseFloat(arguments.get(1));
-        this.month = Month.valueOf(arguments.get(2));
+        this.month = Month.valueOf(arguments.get(2).toUpperCase());
         return true;
     }
 }

@@ -7,6 +7,7 @@ import com.calculator.services.receivers.category.*;
 import lombok.AllArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +36,7 @@ public class CategoryManagerImpl implements CategoryService {
         var notAddedCodes = new ArrayList<>();
         for (var code : mccCodes) {
             var foundCategory = categoryRepository.mccCode(code);
-            if (foundCategory != null) notAddedCodes.add("mcc " + code + " already reserved for another category " + foundCategory.getName() + " ");
+            if (foundCategory != null) notAddedCodes.add("Mcc " + code + " already reserved for another category " + foundCategory.getName() + " ");
             else {
                 foundCategoryByName.getMccCode().add(code);
             }
@@ -44,9 +45,7 @@ public class CategoryManagerImpl implements CategoryService {
                 .map(Object::toString)
                 .collect(Collectors.joining(", ")));
         categoryRepository.save(foundCategoryByName);
-        display.displayMessage("Added new mcc to category " + foundCategoryByName.getName() + "with codes " + mccCodes.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(", ")));
+        display.displayMessage("Added new mcc to category " + foundCategoryByName.getName() + "with codes " + Arrays.toString(mccCodes.toArray()));
     }
 
     @Override
@@ -65,11 +64,16 @@ public class CategoryManagerImpl implements CategoryService {
         }
         if (!notAddedCategories.isEmpty()) throw new CommandExecutionException(notAddedCategories.toString());
         categoryRepository.save(foundParentCategory);
-        display.displayMessage("added new group to " + foundParentCategory.getName() + "with codes " + Arrays.toString(allAddedCodes.toArray()) + Arrays.toString(categoriesToAdd.toArray()));
+        display.displayMessage("Added new group to " + foundParentCategory.getName() + " with codes " + Arrays.toString(allAddedCodes.toArray()) + " " + Arrays.toString(categoriesToAdd.toArray()));
     }
 
     @Override
-    public void deleteCategory(String name) {
+    @Transactional
+    public void deleteCategory(String name) throws CommandExecutionException {
+        /*var foundCategory = categoryRepository.findCategoriesByName(name);
+        if (foundCategory.isEmpty()) throw new CommandExecutionException("No such category");
+        var parentCategories = categoryRepository.subcategories(foundCategory.getFirst());
+        if (!parentCategories.isEmpty()) parentCategories.forEach(x -> x.getSubcategories().remove(foundCategory));*/
         categoryRepository.deleteCategoryByName(name);
     }
 

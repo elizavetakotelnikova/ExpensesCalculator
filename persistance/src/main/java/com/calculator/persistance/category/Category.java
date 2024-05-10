@@ -24,8 +24,8 @@ public class Category {
     @ManyToMany(targetEntity = Category.class, fetch = FetchType.EAGER)
     @JoinTable(
             name = "subcategories",
-            joinColumns = { @JoinColumn(name = "subcategory_id") },
-            inverseJoinColumns = { @JoinColumn(name = "parent_category_id") }
+            joinColumns = { @JoinColumn(name = "parent_category_id") },
+            inverseJoinColumns = { @JoinColumn(name = "subcategory_id") }
     )
     private List<Category> subcategories;
     @ElementCollection(fetch = FetchType.EAGER)
