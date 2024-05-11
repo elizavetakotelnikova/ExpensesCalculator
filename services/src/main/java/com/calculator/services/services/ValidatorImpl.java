@@ -1,5 +1,4 @@
 package com.calculator.services.services;
-import com.calculator.services.exceptions.IncorrectArgumentsException;
 import org.springframework.stereotype.Component;
 
 import java.time.Month;
@@ -28,7 +27,7 @@ public class ValidatorImpl implements Validator {
         return flag;
     }
 
-    // название транзакции не валидируем (нет указаний в тз, считаем что название может содержать любые символы)
+    // не валидируем имя транзакций (нет указаний в тз, считаем что название может содержать любые символы)
     @Override
     public boolean validateTransactionName(String name) {
         return name != null;
@@ -38,7 +37,7 @@ public class ValidatorImpl implements Validator {
     public boolean validateAmount(String amount) {
         if (amount == null) return false;
         try {
-            var value = Float.parseFloat(amount);
+            Float.parseFloat(amount);
         }
         catch (NumberFormatException ex) {
             return false;

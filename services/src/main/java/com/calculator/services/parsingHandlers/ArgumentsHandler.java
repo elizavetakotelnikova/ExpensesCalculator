@@ -9,7 +9,6 @@ public class ArgumentsHandler extends ResponsibilityChainBase {
     public  void handle(Request request) throws IncorrectArgumentsException {
         if (request == null || request.getCommand() == null) throw new IncorrectArgumentsException("Invalid request");
         var arguments = new ArrayList<>(request.getTokenizedLine());
-        ///?
         arguments.forEach(x -> request.getTokenizedLine().remove(x));
         if (request.getCommand().validateArguments(arguments)) {
             if (next != null) next.handle(request);

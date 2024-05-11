@@ -13,12 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class AddTransactionCommand implements Command {
+    private final TransactionAddable transactionService;
+    private final Validator validator;
     private String name;
     private Float value;
     private Month month;
     private Integer mccCode;
-    private final TransactionAddable transactionService;
-    private final Validator validator;
     @Override
     public void execute() throws CommandExecutionException {
         transactionService.addTransaction(name, value, month, mccCode);

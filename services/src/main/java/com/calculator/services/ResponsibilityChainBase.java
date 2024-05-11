@@ -4,8 +4,7 @@ import com.calculator.services.exceptions.IncorrectArgumentsException;
 import lombok.Getter;
 
 @Getter
-public abstract class ResponsibilityChainBase implements ChainLink
-{
+public abstract class ResponsibilityChainBase implements ChainLink {
     protected ChainLink next;
     public ChainLink addNext(ChainLink link)
     {

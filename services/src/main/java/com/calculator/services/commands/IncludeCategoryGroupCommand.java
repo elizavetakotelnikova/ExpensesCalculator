@@ -12,10 +12,10 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class IncludeCategoryGroupCommand implements Command {
-    private String parentCategoryName;
-    private List<String> subcategories;
     private final GroupAddable categoryService;
     private final Validator validator;
+    private String parentCategoryName;
+    private List<String> subcategories;
     @Override
     public void execute() throws CommandExecutionException {
         categoryService.addCategoriesGroup(parentCategoryName, subcategories);

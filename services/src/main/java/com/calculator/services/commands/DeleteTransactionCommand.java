@@ -13,11 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class DeleteTransactionCommand implements Command {
+    private final TransactionDeletable transactionService;
+    private final Validator validator;
     private String name;
     private Float value;
     private Month month;
-    private final TransactionDeletable transactionService;
-    private final Validator validator;
     @Override
     public void execute() throws CommandExecutionException {
         transactionService.deleteTransaction(name, value, month);

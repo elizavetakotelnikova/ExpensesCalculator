@@ -5,5 +5,5 @@ import com.calculator.services.exceptions.CommandExecutionException;
 import java.util.List;
 
 public interface GroupAddable {
-    public void addCategoriesGroup(String parentCategory, List<String> categoriesToAdd) throws CommandExecutionException;
+    void addCategoriesGroup(String parentCategory, List<String> categoriesToAdd) throws CommandExecutionException;
 }

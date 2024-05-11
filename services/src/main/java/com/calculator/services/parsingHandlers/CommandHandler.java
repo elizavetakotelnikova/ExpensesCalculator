@@ -24,7 +24,6 @@ public class CommandHandler extends ResponsibilityChainBase {
                 request.setCommand(valueFromMap);
                 listToRemove.add(part);
                 request.getTokenizedLine().removeAll(listToRemove);
-                //something
                 if (next != null) next.handle(request);
                 return;
             }

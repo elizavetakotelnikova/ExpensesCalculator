@@ -11,10 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class UpdateCategoryCommand implements Command {
-    private String category;
-    private List<Integer> mccCodes;
     private final CategoryUpdatable categoryService;
     private final Validator validator;
+    private String category;
+    private List<Integer> mccCodes;
     @Override
     public void execute() throws CommandExecutionException {
         categoryService.updateCategory(category, mccCodes);

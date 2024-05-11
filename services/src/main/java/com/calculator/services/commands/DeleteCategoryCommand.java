@@ -12,9 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class DeleteCategoryCommand implements Command {
-    private String category;
     private final CategoryDeletable categoryService;
     private final Validator validator;
+    private String category;
     @Override
     public void execute() throws CommandExecutionException {
         categoryService.deleteCategory(category);
