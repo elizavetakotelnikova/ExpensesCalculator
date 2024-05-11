@@ -4,6 +4,7 @@ import com.calculator.persistance.category.Category;
 import com.calculator.persistance.category.CategoryRepository;
 import com.calculator.persistance.transaction.Transaction;
 import com.calculator.persistance.transaction.TransactionRepository;
+import com.calculator.services.exceptions.CommandExecutionException;
 import com.calculator.services.receivers.transaction.TransactionService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,14 +38,14 @@ public class TransactionManagerImpl implements TransactionService {
     }
 
     @Override
-    public void deleteTransaction(String name, float amount, Month month) {
-        if (transactionRepository.findTransactionsByNameAndValueAndMonth(name, amount, month).isEmpty()) {
-            display.displayMessage("No such transaction");
-            return;
+    public void deleteTransaction(String name, float amount, Month month) throws CommandExecutionException {
+        var foundTransactions =  transactionRepository.findTransactionsByNameAndValueAndMonth(name, amount, month);
+        if (foundTransactions.isEmpty()) {
+            //display.displayMessage("No such transaction");
+            throw new CommandExecutionException("No such transaction");
         }
         var transaction = transactionRepository.findTopTransactionsByNameAndValueAndMonth(name, amount, month);
         transactionRepository.deleteById(transaction.getId());
-        //transactionRepository.deleteTransactionByNameAndValueAndMonth(name, amount, month);
         display.displayMessage("Transaction deleted");
     }
 }

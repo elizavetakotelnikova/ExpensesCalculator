@@ -8,11 +8,13 @@ import com.calculator.services.commands.Command;
 import com.calculator.services.commands.CommandsDictionary;
 import com.calculator.services.exceptions.IncorrectArgumentsException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
+@Component
 @RequiredArgsConstructor
 public class ConsoleCommandParser implements Parser {
     private final CommandsDictionary commandsDictionary;

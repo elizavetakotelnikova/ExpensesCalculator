@@ -14,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan("com.calculator.services")
 @ComponentScan("com.calculator.persistance")
+@ComponentScan("com.calculator.expensescalculator")
 public class ExpensesCalculatorApplication {
     public static void main(String[] args) {
         var applicationContext = SpringApplication.run(ExpensesCalculatorApplication.class, args);

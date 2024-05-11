@@ -5,7 +5,6 @@ import com.calculator.persistance.category.CategoryRepository;
 import com.calculator.services.exceptions.CommandExecutionException;
 import com.calculator.services.receivers.category.*;
 import lombok.AllArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,9 +69,9 @@ public class CategoryManagerImpl implements CategoryService {
     @Override
     @Transactional
     public void deleteCategory(String name) throws CommandExecutionException {
-        /*var foundCategory = categoryRepository.findCategoriesByName(name);
+        var foundCategory = categoryRepository.findCategoriesByName(name);
         if (foundCategory.isEmpty()) throw new CommandExecutionException("No such category");
-        var parentCategories = categoryRepository.subcategories(foundCategory.getFirst());
+        /*var parentCategories = categoryRepository.subcategories(foundCategory.getFirst());
         if (!parentCategories.isEmpty()) parentCategories.forEach(x -> x.getSubcategories().remove(foundCategory));*/
         categoryRepository.deleteCategoryByName(name);
     }
