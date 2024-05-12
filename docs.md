@@ -18,7 +18,7 @@ show categories
 add transaction <name> <value> <month> [mccCode]
 
 **Удалить транзакцию:**
-remove transaction <name> <value> <month> (удаляет первую из нашедшихся)
+remove transaction <name> <value> <month> (удаляет первую из найденных)
 
 **Показать все траты в выбранном месяце**
 show expenses in <month>
