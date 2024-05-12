@@ -48,7 +48,7 @@ public class CategoryManagerImpl implements CategoryService {
     }
 
     @Override
-    public void addCategoriesGroup(String parentCategory, List<String> categoriesToAdd) throws CommandExecutionException {
+    public void addSubcategories(String parentCategory, List<String> categoriesToAdd) throws CommandExecutionException {
         var foundParentCategory = categoryRepository.findCategoriesByName(parentCategory).getFirst();
         if (foundParentCategory == null) throw new CommandExecutionException("No such parent category");
         var notAddedCategories = new ArrayList<>();

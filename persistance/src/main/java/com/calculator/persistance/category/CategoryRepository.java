@@ -7,9 +7,19 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     List<Category> findCategoriesByName(String name);
-    //method to find Category, containing given subcategory in its list
+
+    /**
+     * method to find all categories which include given category
+     * @param category subcategory to find in lists of  subcategories
+     * @return list of categories
+     */
     List<Category> subcategories(Category category);
-    //method to find Category, containing given mccCode in its list
+
+    /**
+     * method to find category which given mccCode in its mccCodes list
+     * @param mccCode mccCode to find
+     * @return category with given mccCode
+     */
     Category mccCode(Integer mccCode);
     void deleteCategoryByName(String name);
 }

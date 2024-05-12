@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ConsoleDisplay implements Displayable {
-
     @Override
     public void displayMessage(String message) {
         System.out.println(message);

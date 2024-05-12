@@ -9,7 +9,6 @@ public class ValidatorImpl implements Validator {
     public boolean validateCategoryName(String name) {
         return name != null && !name.matches("[0-9]+$");
     }
-
     @Override
     public boolean validateMccCode(String code) {
         return code.matches("[0-9]{4}");

@@ -28,7 +28,6 @@ class ExpensesCalculatorApplicationTests {
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
             "postgres:15-alpine"
     );
-    Category testCategory;
     @Autowired
     CategoryRepository categoryRepository;
     @Autowired

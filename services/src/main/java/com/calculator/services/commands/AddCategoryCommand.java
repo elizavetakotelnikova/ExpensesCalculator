@@ -25,11 +25,10 @@ public class AddCategoryCommand implements Command {
         if (arguments.size() < 2) throw new IncorrectArgumentsException("Not enough arguments");
         if (!validator.validateCategoryName(arguments.getFirst())) throw new IncorrectArgumentsException("Invalid category name");
         for (int i = 1; i < arguments.size(); i++) {
-            if (!arguments.get(i).matches("[0-9]{4}")) throw new IncorrectArgumentsException("Invalid mcc codes");
+            if (!validator.validateMccCode(arguments.get(i))) throw new IncorrectArgumentsException("Invalid mcc codes");
         }
         this.categoryName = arguments.getFirst();
-        arguments.removeFirst();
-        this.mccCodes = arguments.stream().map(Integer::parseInt).toList();
+        this.mccCodes = arguments.stream().skip(1).map(Integer::parseInt).toList();
         return true;
     }
 }
