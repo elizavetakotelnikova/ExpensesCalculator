@@ -1,6 +1,7 @@
 Запуск приложения:
 - сначала надо запустить docker-compose.yml;
 - дальше перейти к точке запуска (входа) в приложение: ExpensesCalculatorApplication.java;
+- тесты: ExpensesCalculatorApplicationTests.java && TransactionTests.java 
 
 ### Команды:
 **Добавить категорию трат:**
