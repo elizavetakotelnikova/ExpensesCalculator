@@ -83,8 +83,7 @@ class ExpensesCalculatorApplicationTests {
     void testAddingCategory() {
         System.setIn(new ByteArrayInputStream("add category testCategory 1235".getBytes()));
         try {
-            Command currentCommand = parser.parseCommand();
-            commandInvoker.consume(currentCommand);
+           readCommand();
         }
         catch (Exception e) {
             Assertions.fail();
