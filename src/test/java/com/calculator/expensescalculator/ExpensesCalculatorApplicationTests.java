@@ -11,6 +11,8 @@ import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.io.ByteArrayInputStream;
@@ -67,6 +69,12 @@ class ExpensesCalculatorApplicationTests {
                                 container.getPassword())
         );
     }
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+    }
     private void readCommand() throws ParsingException, CommandExecutionException {
         Command currentCommand = parser.parseCommand();
         commandInvoker.consume(currentCommand);
@@ -81,7 +89,7 @@ class ExpensesCalculatorApplicationTests {
         catch (Exception e) {
             Assertions.fail();
         }
-        Assertions.assertEquals(1, categoryRepository.findCategoriesByName("testCategory").size());
+        Assertions.assertNotNull(categoryRepository.findCategoryByName("testCategory"));
     }
     @Test
     void testDeletingNonexistentCategory() {
@@ -105,7 +113,7 @@ class ExpensesCalculatorApplicationTests {
         catch (Exception e) {
             Assertions.fail();
         }
-        Assertions.assertEquals(0, categoryRepository.findCategoriesByName("testCategory").size());
+        Assertions.assertNull(categoryRepository.findCategoryByName("testCategory"));
     }
 
     @Test
@@ -119,7 +127,7 @@ class ExpensesCalculatorApplicationTests {
         catch (Exception e) {
             Assertions.fail();
         }
-        var foundCategory = categoryRepository.findCategoriesByName("testCategory").getFirst();
+        var foundCategory = categoryRepository.findCategoryByName("testCategory");
         var addedCodes = List.of(1457, 5674, 9874);
         Assertions.assertEquals(addedCodes, foundCategory.getMccCode());
     }
@@ -137,8 +145,8 @@ class ExpensesCalculatorApplicationTests {
         catch (Exception e) {
             Assertions.fail();
         }
-        var foundCategory = categoryRepository.findCategoriesByName("secondCategory").getFirst();
-        var foundParentCategory = categoryRepository.findCategoriesByName("testCategory").getFirst();
+        var foundCategory = categoryRepository.findCategoryByName("secondCategory");
+        var foundParentCategory = categoryRepository.findCategoryByName("testCategory");
         var subcategoriesIds = foundParentCategory.getSubcategories().stream().map(Category::getId).toList();
         Assertions.assertTrue(subcategoriesIds.contains(foundCategory.getId()));
     }
@@ -216,5 +224,21 @@ class ExpensesCalculatorApplicationTests {
         Assertions.assertTrue(out.toString().contains("май 1200.0 рублей"));
         Assertions.assertTrue(out.toString().contains("апрель 2200.0 рублей"));
         Assertions.assertTrue(out.toString().contains("июнь 0.0 рублей"));
+    }
+
+    @Test
+    void testAddingCategoryWithReservedMccCode() {
+        try {
+            System.setIn(new ByteArrayInputStream("add category testCategory 1235".getBytes()));
+            readCommand();
+            System.setIn(new ByteArrayInputStream("add category otherCategory 1233".getBytes()));
+            readCommand();
+            System.setIn(new ByteArrayInputStream("add mcc to category testCategory 1233".getBytes()));
+            readCommand();
+        }
+        catch (Exception e) {
+            Assertions.assertSame(e.getClass(), CommandExecutionException.class);
+            Assertions.assertEquals("Mcc 1233 already reserved for another category otherCategory", e.getMessage());
+        }
     }
 }

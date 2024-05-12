@@ -1,7 +1,7 @@
 package com.calculator.services.commands;
 import com.calculator.services.exceptions.CommandExecutionException;
 import com.calculator.services.exceptions.IncorrectArgumentsException;
-import com.calculator.services.receivers.category.CategoryShowable;
+import com.calculator.services.commandReceivers.category.CategoryShowable;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

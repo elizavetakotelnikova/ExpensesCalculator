@@ -23,9 +23,9 @@ import java.sql.SQLException;
 @TestConfiguration(proxyBeanMethods = false)
 public class TestExpensesCalculatorApplication {
 
-    /*@ServiceConnection
+    @ServiceConnection
     @Container
-    private static PostgreSQLContainer<?> postgresContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"));*/
+    private static PostgreSQLContainer<?> postgresContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgres:15-alpine"));
 
     public static void main(String[] args) {
         SpringApplication.from(ExpensesCalculatorApplication::main).with(TestExpensesCalculatorApplication.class).run(args);

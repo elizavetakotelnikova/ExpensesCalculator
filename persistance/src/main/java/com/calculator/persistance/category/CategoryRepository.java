@@ -6,7 +6,7 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    List<Category> findCategoriesByName(String name);
+    Category findCategoryByName(String name);
 
     /**
      * method to find all categories which include given category

@@ -1,7 +1,7 @@
 package com.calculator.services.commands;
 import com.calculator.services.exceptions.CommandExecutionException;
 import com.calculator.services.exceptions.IncorrectArgumentsException;
-import com.calculator.services.receivers.category.CategoryCreatable;
+import com.calculator.services.commandReceivers.category.CategoryCreatable;
 import com.calculator.services.services.Validator;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;

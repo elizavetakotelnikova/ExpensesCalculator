@@ -1,4 +1,4 @@
-package com.calculator.services.receivers.transaction;
+package com.calculator.services.commandReceivers.transaction;
 
 import com.calculator.services.exceptions.CommandExecutionException;
 

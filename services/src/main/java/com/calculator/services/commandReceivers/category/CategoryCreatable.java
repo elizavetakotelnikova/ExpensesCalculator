@@ -1,4 +1,4 @@
-package com.calculator.services.receivers.category;
+package com.calculator.services.commandReceivers.category;
 
 import com.calculator.services.exceptions.CommandExecutionException;
 

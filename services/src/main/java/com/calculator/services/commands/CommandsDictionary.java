@@ -1,8 +1,9 @@
 package com.calculator.services.commands;
 
-import com.calculator.services.receivers.category.*;
-import com.calculator.services.receivers.transaction.TransactionAddable;
-import com.calculator.services.receivers.transaction.TransactionDeletable;
+import com.calculator.services.commandReceivers.category.*;
+import com.calculator.services.commandReceivers.transaction.ExpensesCalculator;
+import com.calculator.services.commandReceivers.transaction.TransactionAddable;
+import com.calculator.services.commandReceivers.transaction.TransactionDeletable;
 import com.calculator.services.services.Validator;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
