@@ -1,3 +1,5 @@
+Точка запуска (входа) в приложение: ExpensesCalculatorApplication.java
+
 ### Команды:
 **Добавить категорию трат:**
 add category <category name> <mcc> [mcc2] [mcc3] ...
