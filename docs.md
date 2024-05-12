@@ -1,4 +1,6 @@
-Точка запуска (входа) в приложение: ExpensesCalculatorApplication.java
+Запуск приложения:
+- сначала надо запустить docker-compose.yml;
+- дальше перейти к точке запуска (входа) в приложение: ExpensesCalculatorApplication.java;
 
 ### Команды:
 **Добавить категорию трат:**
